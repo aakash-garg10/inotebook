@@ -5,7 +5,7 @@ import AddNote from "./AddNote";
 
 const Notes = () => {
   const context = useContext(noteContext);
-  const { notes, getNotes,editNote } = context;
+  const { notes, getNotes, editNote } = context;
   //useRef is used to give referenc to asingle element
   useEffect(() => {
     getNotes();
@@ -13,7 +13,7 @@ const Notes = () => {
   }, []);
 
   const ref = useRef(null);
-  const refClose=useRef(null);
+  const refClose = useRef(null);
   const [note, setNote] = useState({
     id: "",
     etitle: "",
@@ -34,8 +34,8 @@ const Notes = () => {
 
   const handleClick = (e) => {
     // console.log("Updating the note...", note);
-    editNote(note.id, note.etitle, note.edescription, note.etag)
-    refClose.current.click()
+    editNote(note.id, note.etitle, note.edescription, note.etag);
+    refClose.current.click();
   };
 
   const onChange = (e) => {
@@ -88,6 +88,7 @@ const Notes = () => {
                     value={note.etitle}
                     aria-describedby="emailHelp"
                     onChange={onChange}
+                    minLength={5} required
                   />
                 </div>
                 <div className="mb-3">
@@ -97,6 +98,7 @@ const Notes = () => {
                   <input
                     type="text"
                     className="form-control"
+                    minLength={5} required
                     id="edescription"
                     name="edescription"
                     value={note.edescription}
@@ -130,6 +132,7 @@ const Notes = () => {
               <button
                 onClick={handleClick}
                 type="button"
+                disabled={note.etitle.length<5 || note.edescription.length<5}
                 className="btn btn-primary"
               >
                 Update Note
@@ -141,6 +144,9 @@ const Notes = () => {
 
       <div className="row my-3">
         <h2>Your Notes</h2>
+        <div className="container mx-2">
+          {notes.length === 0 && "No notes to display"}
+        </div>
         {notes.map((note) => {
           return (
             <Noteitem key={note._id} updateNote={updateNote} note={note} />
