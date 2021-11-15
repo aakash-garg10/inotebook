@@ -13,6 +13,11 @@ const About = () => {
     //         {/* This is About {a.state.name} and he is in class {a.state.class} */}
     //     </div>
     // )
+    return(
+        <div>
+            this is about page
+        </div>
+    )
 }
 
 export default About
